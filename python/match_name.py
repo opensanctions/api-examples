@@ -25,10 +25,10 @@ def main():
     response.raise_for_status()
 
     # Get the results for our query
-    q1 = response.json()["responses"]["q1"]["results"]
+    q1_results = response.json()["responses"]["q1"]["results"]
 
     # print it out with nice formatting
-    pprint(q1, sort_dicts=False)
+    pprint(q1_results, sort_dicts=False)
 
 
 if __name__ == "__main__":
