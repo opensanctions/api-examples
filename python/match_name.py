@@ -8,19 +8,23 @@ if not OS_API_KEY:
 
 
 def main():
+    # Prepare authentication using the Authorization header
+    headers = {
+        "Authorization": OS_API_KEY,
+    }
+
     # Prepare a query to match on schema and the name property
     query = {
         "queries": {
             "q1": {"schema": "Person", "properties": {"name": ["Barack Obama"]}}
         }
     }
-    # Authenticate using the API key in the Authorization header
-    headers = {
-        "Authorization": OS_API_KEY,
-    }
+
+    # Make the request
     response = requests.post(
         "https://api.opensanctions.org/match/default", headers=headers, json=query
     )
+
     # Check for HTTP errors
     response.raise_for_status()
 

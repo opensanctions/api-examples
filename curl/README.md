@@ -55,7 +55,7 @@ In this example we query for Persons matching by name and date of birth.
 The values are in arrays because in person and company data, it's common to have
 multiple forms or versions of a name for the same entity. See this used below.
 
-In the response, we for results under the `responses.q1.results` keys. Each result
+In the response, we look for results under the `responses.q1.results` keys. Each result
 is a FollowTheMoney entity with additional keys like `score`, `match`, and
 `features` indicating how strongly this entity matched the query. Note which
 [features](https://www.opensanctions.org/matcher/) were good matches contributing
