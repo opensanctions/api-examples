@@ -4,8 +4,8 @@
 ## Requirements
 
 - [curl](https://curl.se/)
-- [jq] (optional) for formatting the JSON responses
-  - Leave out the `| jq .` part in the examples if you don't want to use this.
+- [jq](https://jqlang.github.io/jq/) (optional) for formatting the JSON responses
+  - Leave out `| jq .` onwards in the examples if you don't want to use this.
 
 
 ## Configuration
@@ -18,18 +18,19 @@ export OS_API_KEY=...your key here without dots...
 ```
 
 
-## Simple name matching
+## Examples
+
+
+### Simple name matching
 
 In this example we query for entities of the Person schema matching a single full
 name, Barack Obama.
 
-In the response, we look for results under the `responses.q1.results`. Each result
-is a FollowTheMoney entity with additional keys like `score`, `match`, and
-`features` indicating how strongly this entity matched the query.
-
 ```bash
 curl \
   --silent \
+  --fail-with-body
+  --show-error \
   --header "Content-Type: application/json"  \
   --header "Authorization: ${OS_API_KEY}" \
   --data '
@@ -47,20 +48,24 @@ curl \
 ```
 
 
-## Matching on name and date of birth
+### Matching on name and date of birth
 
 In this example we query for Persons matching by name and date of birth.
 
 The values are in arrays because in person and company data, it's common to have
 multiple forms or versions of a name for the same entity. See this used below.
 
-In the results, note which [features](https://www.opensanctions.org/matcher/)
-were good matches contributing to the score, and which features weren't, reducing
-the score.
+In the response, we for results under the `responses.q1.results` keys. Each result
+is a FollowTheMoney entity with additional keys like `score`, `match`, and
+`features` indicating how strongly this entity matched the query. Note which
+[features](https://www.opensanctions.org/matcher/) were good matches contributing
+to the score, and which features weren't, reducing the score.
 
 ```bash
 curl \
   --silent \
+  --fail-with-body
+  --show-error \
   --header "Content-Type: application/json"  \
   --header "Authorization: ${OS_API_KEY}" \
   --data '
@@ -79,7 +84,7 @@ curl \
 ```
 
 
-## Matching on name and address
+### Matching on name and address
 
 In this example we're matching on name and address. This field is a full address
 in a single string.
@@ -98,6 +103,8 @@ Check the `features` object in the results to see if the address matched, and ho
 ```bash
 curl \
   --silent \
+  --fail-with-body
+  --show-error \
   --header "Content-Type: application/json"  \
   --header "Authorization: ${OS_API_KEY}" \
   --data '
@@ -117,7 +124,7 @@ curl \
 ```
 
 
-## Performing multiple queries in one request
+### Performing multiple queries in one request
 
 You can batch up multiple queries into the same HTTP request to reduce overhead.
 We recommend 20-50 queries per request, rather than hundreds or thousands.
@@ -129,6 +136,8 @@ find results for `Arkady` under `query-A` and `Stroygazmontazh` under `query-B`.
 ```bash
 curl \
   --silent \
+  --fail-with-body
+  --show-error \
   --header "Content-Type: application/json"  \
   --header "Authorization: ${OS_API_KEY}" \
   --data '
