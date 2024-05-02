@@ -1,5 +1,10 @@
 # Javascript examples (NodeJS, server-side)
 
+These examples are for using Javascript using NodeJS. This could for example be
+an Express API or NextJS page you expose to your application, or a script you
+write using Javascript.
+
+
 ## Requirements
 
 You can use any HTTP client, but we'll use
@@ -114,6 +119,7 @@ const response = await fetch(
     // Get the results for our query
   const responseBody = await response.json();
 
+  // Get the ID, name, match status, score, and features for each result
   const results = responseBody.responses.q1.results.map((result) => {
     return {
       "id": result.id,

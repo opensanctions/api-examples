@@ -61,8 +61,6 @@ async function match() {
         "id": result.id,
         "name": result.properties.name,
         "match": result.match,
-        "score": result.score,
-        "features": result.features
       }
     });
 
