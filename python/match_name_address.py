@@ -27,9 +27,17 @@ def main():
         }
     }
 
+    # Select the regresion-v1 algorithm for address matching support
+    params = {
+        "algorithm": "regression-v1",
+    }
+
     # Make the request
     response = requests.post(
-        "https://api.opensanctions.org/match/default", headers=headers, json=query
+        "https://api.opensanctions.org/match/default",
+        params=params,
+        headers=headers,
+        json=query,
     )
 
     # Check for HTTP errors
@@ -37,14 +45,14 @@ def main():
 
     # Get the ID, name, match, score, and features for each result
     results = []
-    for match in response.json()["responses"]["q1"]["results"]:
+    for result in response.json()["responses"]["q1"]["results"]:
         results.append(
             {
-                "id": match["id"],
-                "name": match["properties"]["name"],
-                "match": match["match"],
-                "score": match["score"],
-                "features": match["features"],
+                "id": result["id"],
+                "name": result["properties"]["name"],
+                "match": result["match"],
+                "score": result["score"],
+                "features": result["features"],
             }
         )
 

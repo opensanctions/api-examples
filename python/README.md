@@ -112,6 +112,25 @@ query = {
 response = requests.post(
     "https://api.opensanctions.org/match/default", headers=headers, json=query
 )
+
+# Check for HTTP errors
+response.raise_for_status()
+
+# Get the ID, name, match status, score, and features for each result
+results = []
+for result in response.json()["responses"]["q1"]["results"]:
+    results.append(
+        {
+            "id": result["id"],
+            "name": result["properties"]["name"],
+            "match": result["match"],
+            "score": result["score"],
+            "features": result["features"],
+        }
+    )
+
+# print it out with nice formatting
+pprint(results, sort_dicts=False)
 ```
 
 Run the code:
@@ -140,24 +159,32 @@ Check the `features` object in the results to see if the address matched, and ho
 We will run the code in [match_name_address.py](match_name_address.py), also shown below:
 
 ```python
-    # Prepare a query to match on schema and the name and address properties
-    query = {
-        "queries": {
-            "q1": {
-                "schema": "Person",
-                "properties": {
-                    "name": ["Vladimir", "Wladimir"],
-                    "address": ["Kremlin, Moscow"],
-                    "country": ["ru"],
-                },
-            }
+# Prepare a query to match on schema and the name and address properties
+query = {
+    "queries": {
+        "q1": {
+            "schema": "Person",
+            "properties": {
+                "name": ["Vladimir", "Wladimir"],
+                "address": ["Kremlin, Moscow"],
+                "country": ["ru"],
+            },
         }
     }
+}
 
-    # Make the request
-    response = requests.post(
-        "https://api.opensanctions.org/match/default", headers=headers, json=query
-    )
+# Select the regresion-v1 algorithm for address matching support
+params = {
+    "algorithm": "regression-v1",
+}
+
+# Make the request
+response = requests.post(
+    "https://api.opensanctions.org/match/default",
+    params=params,
+    headers=headers,
+    json=query,
+)
 ```
 
 Run the code:
@@ -176,7 +203,7 @@ Each query is identified by a unique key you can make up, and the results releva
 to that key will be listed under that key in the response. In this case, you'll
 find results for `Arkady` under `query-A` and `Stroygazmontazh` under `query-B`.
 
-We will run the code in [match_name_address.py](multiple_queries.py), also shown below:
+We will run the code in [multiple_queries.py](multiple_queries.py), also shown below:
 
 ```python
 # Prepare two queries for one request

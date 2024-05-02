@@ -42,12 +42,12 @@ def main():
         print(f"\nResults for query {query_id}:")
         # Get the ID, name, match, score, and features for each result
         results = []
-        for match in response.json()["responses"][query_id]["results"]:
+        for result in response.json()["responses"][query_id]["results"]:
             results.append(
                 {
-                    "id": match["id"],
-                    "name": match["properties"]["name"],
-                    "match": match["match"],
+                    "id": result["id"],
+                    "name": result["properties"]["name"],
+                    "match": result["match"],
                 }
             )
 
