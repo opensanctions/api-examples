@@ -13,13 +13,14 @@ async function match() {
     'Content-Type': 'application/json',
   };
 
-  // Prepare a query to match on schema and the name property
+  // Prepare a query to match on schema and the name and birthDate properties
   const requestBody = {
     "queries": {
       "q1": {
         "schema": "Person",
         "properties": {
-          "name": ["Barack Obama"]
+          "name": ["Barack Obama"],
+          "birthDate": ["1961-08-04"]
         }
       }
     }
@@ -42,8 +43,19 @@ async function match() {
 
   // Get the results for our query
   const responseBody = await response.json();
+
+  const results = responseBody.responses.q1.results.map((result) => {
+    return {
+      "id": result.id,
+      "name": result.properties.name,
+      "match": result.match,
+      "score": result.score,
+      "features": result.features
+    }
+  });
+
   // We're just JSON encoding the response data here for pretty printing
-  console.log(JSON.stringify(responseBody.responses.q1.results, null, 2));
+  console.log(JSON.stringify(results, null, 2));
 }
 
 match()
