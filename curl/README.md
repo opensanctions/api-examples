@@ -29,7 +29,7 @@ name, Barack Obama.
 ```bash
 curl \
   --silent \
-  --fail-with-body
+  --fail-with-body \
   --show-error \
   --header "Content-Type: application/json"  \
   --header "Authorization: ${OS_API_KEY}" \
