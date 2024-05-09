@@ -11,3 +11,4 @@ but come back here if you'd like ready-to-use examples in these languages/platfo
 
   - [Curl (command line)](curl#folders-and-files)
   - [Python](python#folders-and-files)
+  - [Javascript (NodeJS, server-side)](node-js/README.md#folders-and-files)
