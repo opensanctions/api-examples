@@ -64,7 +64,7 @@ to the score, and which features weren't, reducing the score.
 ```bash
 curl \
   --silent \
-  --fail-with-body
+  --fail-with-body \
   --show-error \
   --header "Content-Type: application/json"  \
   --header "Authorization: ${OS_API_KEY}" \
@@ -103,7 +103,7 @@ Check the `features` object in the results to see if the address matched, and ho
 ```bash
 curl \
   --silent \
-  --fail-with-body
+  --fail-with-body \
   --show-error \
   --header "Content-Type: application/json"  \
   --header "Authorization: ${OS_API_KEY}" \
@@ -136,7 +136,7 @@ find results for `Arkady` under `query-A` and `Stroygazmontazh` under `query-B`.
 ```bash
 curl \
   --silent \
-  --fail-with-body
+  --fail-with-body \
   --show-error \
   --header "Content-Type: application/json"  \
   --header "Authorization: ${OS_API_KEY}" \
